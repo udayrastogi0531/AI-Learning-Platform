@@ -1,0 +1,55 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user owns the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Users collection - users can read/write their own data
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update, delete: if isOwner(userId);
+    }
+    
+    // Progress collection - users can read/write their own progress
+    match /progress/{userId}/courses/{courseId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Notes collection - users can read/write their own notes
+    match /notes/{userId}/notes/{noteId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Achievements collection - users can read/write their own achievements
+    match /achievements/{userId}/badges/{badgeId} {
+      allow read, write: if isOwner(userId);
+    }
+    
+    // Videos collection - all authenticated users can read
+    match /videos/{videoId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admins can write (handled via Firebase Admin SDK)
+    }
+    
+    // Courses collection - all authenticated users can read
+    match /courses/{courseId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Only admins can write
+    }
+    
+    // Default: deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
