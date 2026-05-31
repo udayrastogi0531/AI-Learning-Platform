@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
             Thank You!
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-8">
-            We've received your message and will get back to you within 24 hours.
+            We&apos;ve received your message and will get back to you within 24 hours.
           </p>
           <button
             onClick={() => window.location.href = '/'}
@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
             Get in Touch
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Ready to transform your learning experience? We'd love to hear from you and show you how our AI-powered platform can accelerate your career growth.
+            Ready to transform your learning experience? We&apos;d love to hear from you and show you how our AI-powered platform can accelerate your career growth.
           </p>
         </div>
 
@@ -74,7 +74,7 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-              Let's Start the Conversation
+              Let&apos;s Start the Conversation
             </h2>
 
             <div className="space-y-8">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc, collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
@@ -9,8 +9,8 @@ import EnhancedVideoPlayer from '@/components/video/EnhancedVideoPlayer';
 import { CertificateService } from '@/lib/certificate-service';
 import { ProgressTrackingService } from '@/lib/progress-tracking';
 
-export default function LessonPlayerPage({ params }: { params: { courseId: string; lessonId: string } }) {
-  const { courseId, lessonId } = params;
+export default function LessonPlayerPage({ params }: { params: Promise<{ courseId: string; lessonId: string }> }) {
+  const { courseId, lessonId } = use(params);
   const { user } = useAuth();
   const router = useRouter();
   

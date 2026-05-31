@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { Inter, Poppins, Source_Sans_3 } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { AuthProvider } from '../lib/auth-context';
@@ -122,7 +123,9 @@ export default function RootLayout({
           <QueryProvider>
             <AuthProvider>
               {children}
-              <Analytics />
+              <Suspense fallback={null}>
+                <Analytics />
+              </Suspense>
               <PWAInstaller />
               <PWAUpdater />
             </AuthProvider>

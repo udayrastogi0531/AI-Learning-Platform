@@ -26,10 +26,7 @@ const nextConfig = {
       },
     ],
   },
-  // Performance optimizations
-  experimental: {
-    optimizeCss: true,
-  },
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production' ? {
       exclude: ['error', 'warn'],

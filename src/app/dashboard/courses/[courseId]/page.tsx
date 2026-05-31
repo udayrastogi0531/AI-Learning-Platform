@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/firebase';
 import { doc, getDoc, collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { useAuth } from '@/lib/auth-context';
 import { Play, Clock } from 'lucide-react';
 
-export default function CourseDetailPage({ params }: { params: { courseId: string } }) {
-  const { courseId } = params;
+export default function CourseDetailPage({ params }: { params: Promise<{ courseId: string }> }) {
+  const { courseId } = use(params);
   const [course, setCourse] = useState<any | null>(null);
   const [lessons, setLessons] = useState<any[]>([]);
   const [enrollment, setEnrollment] = useState<any | null>(null);
